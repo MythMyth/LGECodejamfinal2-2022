@@ -38,18 +38,22 @@ int main() {
         for(auto it: xcounter) {
             long long endAt = startFrom + it.second.count - 1;
             retH += ((startFrom + endAt) * it.second.count / 2 * it.first);
-            it.second.startFrom = startFrom;
+            xcounter[it.first].startFrom = startFrom;
             startFrom += it.second.count;
         }
         startFrom = 1;
         for(auto it: ycounter) {
             long long endAt = startFrom + it.second.count - 1;
             retH += ((startFrom + endAt) * it.second.count / 2 * it.first);
-            it.second.startFrom = startFrom;
+            ycounter[it.first].startFrom = startFrom;
             startFrom += it.second.count;
         }
-
-
+        long long minDesc = LONG_LONG_MAX;
+        for(int i = 0; i < k; i++) {
+            int thisXlvl = xlvl[e[i].first], thisYlvl= ylvl[e[i].second];
+            minDesc = min(minDesc, (long long)(xcounter[thisXlvl].startFrom + ycounter[thisYlvl].startFrom));
+        }
+        retHi = retH - minDesc;
         cout << retH << " " << retHi << "\n";
 
     }
